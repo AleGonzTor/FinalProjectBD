@@ -1,2 +1,5 @@
 # FinalProjectBD
 Parangaricutirimicuarotorrinolaringologoftalmologíantiquisima.
+
+Integrantes:
+Ismael Jacob Diaz Huillca
