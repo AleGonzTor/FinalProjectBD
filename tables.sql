@@ -31,3 +31,18 @@ CREATE TABLE turno_trabajo
     hora_fin TIME NOT NULL,
     CONSTRAINT chk_tiempo CHECK (hora_fin > hora_inicio AND TIMEDIFF(hora_fin, hora_inicio) <= '8:00:00')
 );
+
+#TABLA ASIGNACION_TRABAJO
+CREATE TABLE asignacion_turno
+(
+    id_asignacion SERIAL PRIMARY KEY,
+    fecha DATE NOT NULL,
+    id_empleado INT NOT NULL,
+    id_turno_trabajo INT NOT NULL,
+    CONSTRAINT fk_empleado
+        FOREIGN KEY (id_empleado)
+        REFERENCES empleado (id_empleado),
+    CONSTRAINT fk_turno_trabajo
+        FOREIGN KEY (id_turno_trabajo)
+        REFERENCES turno_trabajo (id_turno)
+);
