@@ -1,3 +1,42 @@
+
+CREATE TABLE habitacion 
+(
+  id_habitacion SERIAL, 
+  numero VARCHAR(5) NOT NULL,
+  estado CHAR(1) NOT NULL,
+  CONSTRAINT pk_habitacion PRIMARY KEY (id_habitacion),
+  CONSTRAINT u_numero UNIQUE(numero),
+  CONSTRAINT chk_estado CHECK (estado IN ('D', 'O', 'M', 'L'))
+);
+
+CREATE TABLE huesped
+(
+  id_huesped SERIAL,
+  nombre VARCHAR(20) NOT NULL,
+  apellido VARCHAR(20) NOT NULL,
+  tpo_documento CHAR(1) NOT NULL,
+  nro_documento VARCHAR(10) NOT NULL,
+  telefono VARCHAR(20) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  CONSTRAINT pk_huesped PRIMARY KEY (id_huesped),
+  CONSTRAINT u_email UNIQUE(email),
+  CONSTRAINT chk_tpo_documento CHECK (tpo_documento IN ('D', 'P', 'E'))
+);
+
+CREATE TABLE reserva
+(
+  id_reserva SERIAL,
+  id_huesped INT NOT NULL,
+  id_habitacion INT NOT NULL,
+  fecha_checkin DATE NOT NULL,
+  fecha_checkout DATE NOT NULL,
+  estado CHAR(1) NOT NULL,
+  CONSTRAINT pk_reserva PRIMARY KEY (id_reserva),
+  CONSTRAINT fk_huesped FOREIGN KEY (id_huesped) REFERENCES huesped (id_huesped),
+  CONSTRAINT fk_habitacion FOREIGN KEY (id_habitacion) REFERENCES habitacion (id_habitacion),
+  CONSTRAINT chk_fechas CHECK (fecha_checkout > fecha_checkin)
+);
+
 #TABLA DEPARTAMENTO
 CREATE TABLE departamento 
 (
