@@ -85,4 +85,4 @@ VALUES
 
 select * from resena;
 
-	
+	-- 8 inserts 1 update, commits atimicos, comentario, sin inconsistencias
