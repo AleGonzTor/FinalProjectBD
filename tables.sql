@@ -21,3 +21,13 @@ CREATE TABLE empleado
         FOREIGN KEY (id_departamento)
         REFERENCES departamento (id_departamento)
 );
+
+#TABLA TURNO_TRABAJO
+CREATE TABLE turno_trabajo
+(
+    id_turno INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    hora_inicio TIME NOT NULL,
+    hora_fin TIME NOT NULL,
+    CONSTRAINT chk_tiempo CHECK (hora_fin > hora_inicio AND TIMEDIFF(hora_fin, hora_inicio) <= '8:00:00')
+);
