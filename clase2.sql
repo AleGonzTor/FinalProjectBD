@@ -33,3 +33,27 @@ VALUES
     ('2025-05-01', 5, 7),
     ('2026-01-12', 1, 8),
     ('2025-03-24', 2, 6);
+
+INSERT INTO habitacion(numero, estado) 
+VALUES 
+    ('A1', 'D'),
+    ('A2', 'D'),
+    ('D1', 'D'),
+    ('A3', 'D'),
+    ('B1', 'D');
+
+INSERT INTO huesped(nombre, apellido, tpo_documento, nro_documento, telefono, email) 
+VALUES 
+    ('Alejandro', 'Gonzales', 'D', '72121003', '+51900568351', 'alegonzales20022005@gmail.com'),
+    ('Ismael', 'Diaz', 'D', '88888888', '+51900000000', 'ismael.diaz@ucsp.edu.pe'),
+    ('Alejandro', 'Pastor', 'D', '71111111', '+51900000002', 'alejandro.pastor@ucsp.edu.pe'),
+    ('Carlos', 'Diaz', 'D', '72222222', '+51911111111', 'carlos.diaz.mamani@ucsp.edu.pe'),
+    ('Projoy', 'Barua', 'P', 'L12345678', '+33750514435', 'projoy.barua@ucsp.edu.pe');
+
+INSERT INTO reserva(id_huesped, id_habitacion, fecha_checkin, fecha_checkout, estado)
+VALUES
+    (1, 1, '2027-01-10', '2027-01-20', 'F'),
+    (2, 2, '2027-01-14', '2027-01-18', 'F'),
+    (3, 3, '2027-01-19', '2027-01-22', 'F'),
+    (4, 4, '2027-02-1', '2027-02-20', 'F'),
+    (5, 5, '2027-02-12', '2027-02-15', 'F');
