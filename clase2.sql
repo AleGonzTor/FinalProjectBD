@@ -35,6 +35,14 @@ VALUES
     ('Samuel', 'Luque', 'samuel_luque@gmail.com', '+53 32144125', '2006-11-12',2),
     ('Dassi', 'Cris', 'dassi_cris@gmail.com', '+51 912434178', '1997-12-08',3),
     ('Smith', 'Lopez', 'slopez@gmail.com', '+51 978608647', '2000-01-20',5);
+--ACTUALIZAR VALORES 
+UPDATE empleado
+SET telefono  = '+51 917570308'
+WHERE id_empleado = 3;
+UPDATE empleado
+SET id_departamento  = 2
+WHERE id_empleado = 1;
+
 
 INSERT INTO asignacion_turno (fecha, id_empleado, id_turno_trabajo)
 VALUES
