@@ -6,6 +6,10 @@ VALUES
     ('Cocina'),
     ('Servicio'),
     ('Topico');
+--ACTUALIZAR VALORES
+UPDATE departamento
+SET nombre = 'Gerente'
+WHERE id_departamento = 5;
 
 INSERT INTO turno_trabajo (nombre, hora_inicio, hora_fin)
 VALUES
