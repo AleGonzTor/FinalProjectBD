@@ -66,7 +66,7 @@ CREATE TABLE empleado
 CREATE TABLE turno_trabajo
 (
     id_turno SERIAL,
-    nombre VARCHAR(20) NOT NULL,
+    nombre VARCHAR(30) NOT NULL,
     hora_inicio TIME NOT NULL,
     hora_fin TIME NOT NULL,
     CONSTRAINT pk_turno PRIMARY KEY (id_turno),
