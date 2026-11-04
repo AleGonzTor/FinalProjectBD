@@ -21,6 +21,12 @@ VALUES
     ('Tarde Medio Tiempo 2', '18:00:00', '22:00:00'),
     ('Cierre Dia', '22:00:00', '24:00:00'),
     ('Inicio dia', '00:00:00', '06:00:00');
+--ACTUALIZAR VALORES
+UPDATE turno_trabajo
+SET hora_inicio = '08:00:00'
+WHERE id_turno = 1;
+
+
 
 INSERT INTO empleado(nombre, apellido, email, telefono, fecha_nacimiento, id_departamento)
 VALUES
