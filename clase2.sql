@@ -43,6 +43,11 @@ VALUES
     ('2025-05-01', 5, 7),
     ('2026-01-12', 1, 8),
     ('2025-03-24', 2, 6);
+--ACTUALIZAR VALORES
+UPDATE asignacion_turno
+SET id_turno_trabajo = 1
+WHERE id_asignacion = 4;
+
 
 INSERT INTO habitacion(numero, estado) 
 VALUES 
