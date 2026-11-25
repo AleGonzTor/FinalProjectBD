@@ -137,40 +137,6 @@ CREATE TABLE solicitud_mantenimiento
 );
 
 
--- ORDEN DE TRABAJO
-CREATE TABLE orden_trabajo
-(
-    id_orden SERIAL,
-    fecha_inicio DATE NOT NULL,
-    fecha_fin TIMESTAMP,
-    observaciones VARCHAR(255),
-    id_solicitud INT NOT NULL,
-    id_empleado_responsable INT NOT NULL,
-    id_insumo INT,
-    CONSTRAINT pk_orden_trabajo
-        PRIMARY KEY (id_orden),
-    CONSTRAINT fk_orden_solicitud
-        FOREIGN KEY (id_solicitud)
-        REFERENCES solicitud_mantenimiento (id_solicitud)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT fk_orden_empleado
-        FOREIGN KEY (id_empleado_responsable)
-        REFERENCES empleado (id_empleado)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL,
-    CONSTRAINT fk_orden_insumo
-        FOREIGN KEY (id_insumo)
-        REFERENCES inventario_insumo (id_insumo)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL,
-    CONSTRAINT chk_fechas_orden
-        CHECK (
-            fecha_fin IS NULL
-            OR fecha_fin >= fecha_inicio
-        )
-);
-
 -- PAGO
 CREATE TABLE pago
 (
@@ -306,4 +272,40 @@ CREATE TABLE inventario_insumo
         ON DELETE SET NULL,
     CONSTRAINT chk_stock_insumo
         CHECK (stock_actual >= 0 AND stock_minimo >= 0)
+);
+
+
+
+-- ORDEN DE TRABAJO
+CREATE TABLE orden_trabajo
+(
+    id_orden SERIAL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin TIMESTAMP,
+    observaciones VARCHAR(255),
+    id_solicitud INT NOT NULL,
+    id_empleado_responsable INT NOT NULL,
+    id_insumo INT,
+    CONSTRAINT pk_orden_trabajo
+        PRIMARY KEY (id_orden),
+    CONSTRAINT fk_orden_solicitud
+        FOREIGN KEY (id_solicitud)
+        REFERENCES solicitud_mantenimiento (id_solicitud)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_orden_empleado
+        FOREIGN KEY (id_empleado_responsable)
+        REFERENCES empleado (id_empleado)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+    CONSTRAINT fk_orden_insumo
+        FOREIGN KEY (id_insumo)
+        REFERENCES inventario_insumo (id_insumo)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+    CONSTRAINT chk_fechas_orden
+        CHECK (
+            fecha_fin IS NULL
+            OR fecha_fin >= fecha_inicio
+        )
 );
