@@ -142,6 +142,22 @@ CREATE TABLE orden_trabajo
         )
 );
 
+-- PAGO
+CREATE TABLE pago
+(
+  id_pago SERIAL,
+  id_reserva INT NOT NULL,
+  monto NUMERIC(10,2) NOT NULL,
+  fecha_pago TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  metodo_pago VARCHAR(20) NOT NULL,
+  estado CHAR(1) NOT NULL DEFAULT 'P',
+  CONSTRAINT pk_pago PRIMARY KEY (id_pago),
+  CONSTRAINT fk_pago_reserva FOREIGN KEY (id_reserva) REFERENCES reserva (id_reserva),
+  CONSTRAINT chk_monto_pago CHECK (monto > 0),
+  CONSTRAINT chk_metodo_pago CHECK (metodo_pago IN ('EFECTIVO', 'TARJETA', 'TRANSFERENCIA', 'YAPE')),
+  CONSTRAINT chk_estado_pago CHECK (estado IN ('P', 'C', 'A'))
+);
+
 
 -- COMPROBANTE DE PAGO
 CREATE TABLE comprobante_pago
