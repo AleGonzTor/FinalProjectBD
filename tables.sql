@@ -4,9 +4,12 @@ CREATE TABLE habitacion
   id_habitacion SERIAL, 
   numero VARCHAR(5) NOT NULL,
   estado CHAR(1) NOT NULL,
-  CONSTRAINT pk_habitacion PRIMARY KEY (id_habitacion),
-  CONSTRAINT u_numero UNIQUE(numero),
-  CONSTRAINT chk_estado CHECK (estado IN ('D', 'O', 'M', 'L'))
+  CONSTRAINT pk_habitacion 
+      PRIMARY KEY (id_habitacion),
+  CONSTRAINT u_numero 
+      UNIQUE(numero),
+  CONSTRAINT chk_estado 
+      CHECK (estado IN ('D', 'O', 'M', 'L'))
 );
 
 CREATE TABLE huesped
@@ -18,9 +21,12 @@ CREATE TABLE huesped
   nro_documento VARCHAR(10) NOT NULL,
   telefono VARCHAR(20) NOT NULL,
   email VARCHAR(50) NOT NULL,
-  CONSTRAINT pk_huesped PRIMARY KEY (id_huesped),
-  CONSTRAINT u_email UNIQUE(email),
-  CONSTRAINT chk_tpo_documento CHECK (tpo_documento IN ('D', 'P', 'E'))
+  CONSTRAINT pk_huesped 
+      PRIMARY KEY (id_huesped),
+  CONSTRAINT u_email 
+      UNIQUE(email),
+  CONSTRAINT chk_tpo_documento 
+      CHECK (tpo_documento IN ('D', 'P', 'E'))
 );
 
 CREATE TABLE reserva
@@ -31,10 +37,20 @@ CREATE TABLE reserva
   fecha_checkin DATE NOT NULL,
   fecha_checkout DATE NOT NULL,
   estado CHAR(1) NOT NULL,
-  CONSTRAINT pk_reserva PRIMARY KEY (id_reserva),
-  CONSTRAINT fk_huesped FOREIGN KEY (id_huesped) REFERENCES huesped (id_huesped),
-  CONSTRAINT fk_habitacion FOREIGN KEY (id_habitacion) REFERENCES habitacion (id_habitacion),
-  CONSTRAINT chk_fechas CHECK (fecha_checkout > fecha_checkin)
+  CONSTRAINT pk_reserva 
+      PRIMARY KEY (id_reserva),
+  CONSTRAINT fk_huesped
+      FOREIGN KEY (id_huesped)
+      REFERENCES huesped (id_huesped)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT,
+  CONSTRAINT fk_habitacion
+      FOREIGN KEY (id_habitacion)
+      REFERENCES habitacion (id_habitacion)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT,
+  CONSTRAINT chk_fechas 
+      CHECK (fecha_checkout > fecha_checkin)
 );
 
 -- TABLA DEPARTAMENTO
@@ -60,6 +76,8 @@ CREATE TABLE empleado
     CONSTRAINT fk_departamento_empleado
         FOREIGN KEY (id_departamento)
         REFERENCES departamento (id_departamento)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
 );
 
 -- TABLA TURNO_TRABAJO
@@ -82,10 +100,14 @@ CREATE TABLE asignacion_turno
     id_turno_trabajo INT NOT NULL,
     CONSTRAINT fk_empleado
         FOREIGN KEY (id_empleado)
-        REFERENCES empleado (id_empleado),
+        REFERENCES empleado (id_empleado)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT fk_turno_trabajo
         FOREIGN KEY (id_turno_trabajo)
         REFERENCES turno_trabajo (id_turno)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
 -- SOLICITUD DE MANTENIMIENTO
@@ -100,15 +122,16 @@ CREATE TABLE solicitud_mantenimiento
 
     CONSTRAINT pk_solicitud_mantenimiento
         PRIMARY KEY (id_solicitud),
-
     CONSTRAINT fk_solicitud_habitacion
         FOREIGN KEY (id_habitacion)
-        REFERENCES habitacion (id_habitacion),
-
+        REFERENCES habitacion (id_habitacion)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT fk_solicitud_empleado
         FOREIGN KEY (id_empleado_reporta)
-        REFERENCES empleado (id_empleado),
-
+        REFERENCES empleado (id_empleado)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
     CONSTRAINT chk_estado_solicitud
         CHECK (estado IN ('P', 'E', 'R'))
 );
@@ -126,15 +149,16 @@ CREATE TABLE orden_trabajo
 
     CONSTRAINT pk_orden_trabajo
         PRIMARY KEY (id_orden),
-
     CONSTRAINT fk_orden_solicitud
         FOREIGN KEY (id_solicitud)
-        REFERENCES solicitud_mantenimiento (id_solicitud),
-
+        REFERENCES solicitud_mantenimiento (id_solicitud)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT fk_orden_empleado
         FOREIGN KEY (id_empleado_responsable)
-        REFERENCES empleado (id_empleado),
-
+        REFERENCES empleado (id_empleado)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
     CONSTRAINT chk_fechas_orden
         CHECK (
             fecha_fin IS NULL
@@ -153,8 +177,11 @@ CREATE TABLE pago
     estado CHAR(1) NOT NULL DEFAULT 'P',
     CONSTRAINT pk_pago 
         PRIMARY KEY (id_pago),
-    CONSTRAINT fk_pago_reserva 
-        FOREIGN KEY (id_reserva) REFERENCES reserva (id_reserva),
+    CONSTRAINT fk_pago_reserva
+        FOREIGN KEY (id_reserva)
+        REFERENCES reserva (id_reserva)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT chk_monto_pago 
         CHECK (monto > 0),
     CONSTRAINT chk_metodo_pago 
@@ -177,8 +204,11 @@ CREATE TABLE comprobante_pago
 
     CONSTRAINT pk_comprobante_pago
         PRIMARY KEY (id_comprobante),
-    CONSTRAINT chk_tipo_comprobante
-        CHECK (tipo_comprobante IN ('B', 'F')),
+    CONSTRAINT fk_comprobante_pago
+        FOREIGN KEY (id_pago)
+        REFERENCES pago (id_pago)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT fk_comprobante_pago 
         FOREIGN KEY (id_pago) REFERENCES pago (id_pago),
     CONSTRAINT chk_importes_comprobante
@@ -202,10 +232,14 @@ CREATE TABLE resena
         PRIMARY KEY (id_resena),
     CONSTRAINT fk_resena_huesped
         FOREIGN KEY (id_huesped)
-        REFERENCES huesped (id_huesped),
+        REFERENCES huesped (id_huesped)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT fk_resena_reserva
         FOREIGN KEY (id_reserva)
-        REFERENCES reserva (id_reserva),
+        REFERENCES reserva (id_reserva)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT chk_puntuacion_resena
         CHECK (puntuacion BETWEEN 1 AND 5)
 );
@@ -224,7 +258,9 @@ CREATE TABLE encuesta_satisfaccion
         PRIMARY KEY (id_encuesta),
     CONSTRAINT fk_encuesta_huesped
         FOREIGN KEY (id_huesped)
-        REFERENCES huesped (id_huesped),
+        REFERENCES huesped (id_huesped)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT chk_nivel_satisfaccion
         CHECK (nivel_satisfaccion IN ('1', '2', '3', '4', '5'))
 );
@@ -261,7 +297,9 @@ CREATE TABLE inventario_insumo
         PRIMARY KEY (id_insumo),
     CONSTRAINT fk_insumo_proveedor
         FOREIGN KEY (id_proveedor)
-        REFERENCES proveedor (id_proveedor),
+        REFERENCES proveedor (id_proveedor)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
     CONSTRAINT chk_stock_insumo
         CHECK (stock_actual >= 0 AND stock_minimo >= 0)
 );
