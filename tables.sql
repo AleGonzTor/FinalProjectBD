@@ -209,8 +209,6 @@ CREATE TABLE comprobante_pago
         REFERENCES pago (id_pago)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_comprobante_pago 
-        FOREIGN KEY (id_pago) REFERENCES pago (id_pago),
     CONSTRAINT chk_importes_comprobante
         CHECK (subtotal >= 0 AND impuestos >= 0),
     CONSTRAINT u_comprobante_serie
