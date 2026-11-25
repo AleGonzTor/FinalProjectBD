@@ -145,17 +145,22 @@ CREATE TABLE orden_trabajo
 -- PAGO
 CREATE TABLE pago
 (
-  id_pago SERIAL,
-  id_reserva INT NOT NULL,
-  monto NUMERIC(10,2) NOT NULL,
-  fecha_pago TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  metodo_pago VARCHAR(20) NOT NULL,
-  estado CHAR(1) NOT NULL DEFAULT 'P',
-  CONSTRAINT pk_pago PRIMARY KEY (id_pago),
-  CONSTRAINT fk_pago_reserva FOREIGN KEY (id_reserva) REFERENCES reserva (id_reserva),
-  CONSTRAINT chk_monto_pago CHECK (monto > 0),
-  CONSTRAINT chk_metodo_pago CHECK (metodo_pago IN ('EFECTIVO', 'TARJETA', 'TRANSFERENCIA', 'YAPE')),
-  CONSTRAINT chk_estado_pago CHECK (estado IN ('P', 'C', 'A'))
+    id_pago SERIAL,
+    id_reserva INT NOT NULL,
+    monto NUMERIC(10,2) NOT NULL,
+    fecha_pago TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    metodo_pago VARCHAR(20) NOT NULL,
+    estado CHAR(1) NOT NULL DEFAULT 'P',
+    CONSTRAINT pk_pago 
+        PRIMARY KEY (id_pago),
+    CONSTRAINT fk_pago_reserva 
+        FOREIGN KEY (id_reserva) REFERENCES reserva (id_reserva),
+    CONSTRAINT chk_monto_pago 
+        CHECK (monto > 0),
+    CONSTRAINT chk_metodo_pago 
+        CHECK (metodo_pago IN ('EFECTIVO', 'TARJETA', 'TRANSFERENCIA', 'YAPE')),
+    CONSTRAINT chk_estado_pago 
+        CHECK (estado IN ('P', 'C', 'A'))
 );
 
 
@@ -172,13 +177,12 @@ CREATE TABLE comprobante_pago
 
     CONSTRAINT pk_comprobante_pago
         PRIMARY KEY (id_comprobante),
-
     CONSTRAINT chk_tipo_comprobante
         CHECK (tipo_comprobante IN ('B', 'F')),
-
+    CONSTRAINT fk_comprobante_pago 
+        FOREIGN KEY (id_pago) REFERENCES pago (id_pago),
     CONSTRAINT chk_importes_comprobante
         CHECK (subtotal >= 0 AND impuestos >= 0),
-
     CONSTRAINT u_comprobante_serie
         UNIQUE (tipo_comprobante, nro_serie)
 );
@@ -196,15 +200,12 @@ CREATE TABLE resena
 
     CONSTRAINT pk_resena
         PRIMARY KEY (id_resena),
-
     CONSTRAINT fk_resena_huesped
         FOREIGN KEY (id_huesped)
         REFERENCES huesped (id_huesped),
-
     CONSTRAINT fk_resena_reserva
         FOREIGN KEY (id_reserva)
         REFERENCES reserva (id_reserva),
-
     CONSTRAINT chk_puntuacion_resena
         CHECK (puntuacion BETWEEN 1 AND 5)
 );
@@ -221,11 +222,9 @@ CREATE TABLE encuesta_satisfaccion
 
     CONSTRAINT pk_encuesta_satisfaccion
         PRIMARY KEY (id_encuesta),
-
     CONSTRAINT fk_encuesta_huesped
         FOREIGN KEY (id_huesped)
         REFERENCES huesped (id_huesped),
-
     CONSTRAINT chk_nivel_satisfaccion
         CHECK (nivel_satisfaccion IN ('1', '2', '3', '4', '5'))
 );
@@ -242,10 +241,8 @@ CREATE TABLE proveedor
 
     CONSTRAINT pk_proveedor
         PRIMARY KEY (id_proveedor),
-
     CONSTRAINT u_proveedor_ruc
         UNIQUE (ruc_nit),
-
     CONSTRAINT u_proveedor_correo
         UNIQUE (correo)
 );
@@ -262,11 +259,9 @@ CREATE TABLE inventario_insumo
 
     CONSTRAINT pk_inventario_insumo
         PRIMARY KEY (id_insumo),
-
     CONSTRAINT fk_insumo_proveedor
         FOREIGN KEY (id_proveedor)
         REFERENCES proveedor (id_proveedor),
-
     CONSTRAINT chk_stock_insumo
         CHECK (stock_actual >= 0 AND stock_minimo >= 0)
 );
