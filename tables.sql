@@ -146,7 +146,7 @@ CREATE TABLE orden_trabajo
     observaciones VARCHAR(255),
     id_solicitud INT NOT NULL,
     id_empleado_responsable INT NOT NULL,
-
+    id_insumo INT,
     CONSTRAINT pk_orden_trabajo
         PRIMARY KEY (id_orden),
     CONSTRAINT fk_orden_solicitud
@@ -157,6 +157,11 @@ CREATE TABLE orden_trabajo
     CONSTRAINT fk_orden_empleado
         FOREIGN KEY (id_empleado_responsable)
         REFERENCES empleado (id_empleado)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+    CONSTRAINT fk_orden_insumo
+        FOREIGN KEY (id_insumo)
+        REFERENCES inventario_insumo (id_insumo)
         ON UPDATE CASCADE
         ON DELETE SET NULL,
     CONSTRAINT chk_fechas_orden
