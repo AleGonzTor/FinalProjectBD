@@ -287,6 +287,7 @@ CREATE TABLE inventario_insumo
 (
     id_insumo SERIAL,
     nombre VARCHAR(100) NOT NULL,
+    unidad_medida VARCHAR (5) NOT NULL,
     stock_actual INT NOT NULL DEFAULT 0,
     stock_minimo INT NOT NULL DEFAULT 0,
     id_proveedor INT NOT NULL,
