@@ -80,3 +80,21 @@ VALUES
     (3, 3, '2027-01-19', '2027-01-22', 'F'),
     (4, 4, '2027-02-1', '2027-02-20', 'F'),
     (5, 5, '2027-02-12', '2027-02-15', 'F');
+
+INSERT INTO pago (id_reserva, monto, metodo_pago, estado)
+VALUES
+    (1, 500.00, 'TARJETA', 'C'),
+    (2, 320.00, 'YAPE', 'C'),
+    (3, 240.00, 'EFECTIVO', 'C'),
+    (4, 950.00, 'TRANSFERENCIA', 'P'),
+    (5, 210.00, 'TARJETA', 'C');
+
+INSERT INTO proveedor (razon_social, ruc_nit, telefono, correo)
+VALUES
+    ('Suministros del Sur SAC', '20541236981', '+51 954111222', 'ventas@suministrosdelsur.pe'),
+    ('Limpieza y Hogar EIRL', '20601928374', '+51 954333444', 'contacto@limpiezahogar.pe');
+
+INSERT INTO inventario_insumo (nombre, unidad_medida, stock_actual, stock_minimo, id_proveedor)
+VALUES
+    ('Lejia Industrial', 'LT', 25.00, 10.00, 2),
+    ('Sabanas de Algodon', 'UND', 40.00, 15.00, 1);
