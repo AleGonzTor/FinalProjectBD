@@ -69,6 +69,7 @@ CREATE TABLE empleado
     apellido VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
     telefono VARCHAR(20) NOT NULL,
+    telefono_trabajo VARCHAR(20),
     fecha_nacimiento DATE NOT NULL,
     id_departamento INT NOT NULL,
     CONSTRAINT pk_empleado PRIMARY KEY (id_empleado),
