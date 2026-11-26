@@ -38,7 +38,6 @@ VALUES
 --ACTUALIZAR VALORES 
 UPDATE empleado
 SET telefono  = '+51 917570308'
-SET telefono_trabajo = '+51 912746492'
 WHERE id_empleado = 3;
 UPDATE empleado
 SET id_departamento  = 2
