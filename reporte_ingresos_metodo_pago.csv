@@ -1,0 +1,4 @@
+"metodo_pago","cantidad_pagos","cantidad_reservas","cantidad_huespedes","total_recaudado","total_pendiente","total_anulado"
+"TARJETA",2,2,2,710.00,0,0
+"YAPE",2,2,2,620.00,0,0
+"EFECTIVO",1,1,1,240.00,0,0
