@@ -98,3 +98,62 @@ INSERT INTO inventario_insumo (nombre, unidad_medida, stock_actual, stock_minimo
 VALUES
     ('Lejia Industrial', 'LT', 25.00, 10.00, 2),
     ('Sabanas de Algodon', 'UND', 40.00, 15.00, 1);
+
+
+INSERT INTO comprobante_pago
+(tipo_comprobante, nro_serie, subtotal, impuestos, id_pago)
+VALUES
+    ('B', 'B001-00001', 423.73, 76.27, 1),
+    ('B', 'B001-00002', 271.19, 48.81, 2),
+    ('F', 'F001-00001', 203.39, 36.61, 3),
+    ('F', 'F001-00002', 805.08, 144.92, 4),
+    ('B', 'B001-00003', 177.97, 32.03, 5);
+
+
+INSERT INTO resena
+(puntuacion, comentario, id_huesped, id_reserva)
+VALUES
+    (5, 'Excelente servicio y atencion.', 1, 1),
+    (4, 'Habitacion comoda y buen servicio.', 2, 2),
+    (5, 'Muy buena experiencia.', 3, 3),
+    (3, 'La atencion podria mejorar.', 4, 4),
+    (4, 'Instalaciones agradables.', 5, 5);
+
+INSERT INTO encuesta_satisfaccion
+(nivel_satisfaccion, comentarios_mejora, id_huesped)
+VALUES
+    ('5', 'Excelente servicio.', 1),
+    ('4', 'Mejorar la rapidez de atencion.', 2),
+    ('5', 'Muy buenas instalaciones.', 3),
+    ('3', 'Mejorar el servicio de limpieza.', 4),
+    ('4', 'Buena experiencia en general.', 5);
+
+
+INSERT INTO solicitud_mantenimiento
+(falla_descripcion, estado, id_habitacion, id_empleado_reporta)
+VALUES
+    ('Fuga de agua en el bano.', 'P', 1, 1),
+    ('Aire acondicionado averiado.', 'E', 2, 2),
+    ('Foco de habitacion averiado.', 'R', 3, 3),
+    ('Problema con la cerradura.', 'P', 4, 4),
+    ('Baja presion de agua en ducha.', 'E', 5, 5);
+
+
+INSERT INTO orden_trabajo
+(fecha_inicio, fecha_fin, observaciones,
+ id_solicitud, id_empleado_responsable, id_insumo)
+VALUES
+    ('2026-11-10', NULL, 'Revision de tuberias.',
+     1, 1, 1),
+
+    ('2026-11-11', NULL, 'Reparacion del aire acondicionado.',
+     2, 2, 2),
+
+    ('2026-11-12', '2026-11-12 11:30:00', 'Cambio de foco.',
+     3, 3, 2),
+
+    ('2026-11-13', NULL, 'Revision de cerradura.',
+     4, 4, NULL),
+
+    ('2026-11-14', NULL, 'Revision de ducha y tuberias.',
+     5, 5, 1);
