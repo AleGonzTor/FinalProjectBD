@@ -28,7 +28,7 @@ WHERE id_turno = 1;
 
 
 
-INSERT INTO empleado(nombre, apellido, email, telefono, fecha_nacimiento, id_departamento)
+INSERT INTO empleado(nombre, apellido, email, telefono, telefono_trabajo, fecha_nacimiento, id_departamento)
 VALUES
     ('Rigoberto', 'Nuñez', 'obed_nuñez@gmail.com', '+51 934324153', '+51 942120442', '2002-10-24', 1),
     ('Shounni', 'Nuzzi', 'shou_nuz@gmail.com', '+51 934248153', '+51 942643242', '2003-04-01',4),
@@ -38,6 +38,7 @@ VALUES
 --ACTUALIZAR VALORES 
 UPDATE empleado
 SET telefono  = '+51 917570308'
+SET telefono_trabajo = '+51 912746492'
 WHERE id_empleado = 3;
 UPDATE empleado
 SET id_departamento  = 2
