@@ -261,7 +261,7 @@ CREATE TABLE inventario_insumo
     unidad_medida VARCHAR (5) NOT NULL,
     stock_actual INT NOT NULL DEFAULT 0,
     stock_minimo INT NOT NULL DEFAULT 0,
-    id_proveedor INT NOT NULL,
+    id_proveedor INT,
 
     CONSTRAINT pk_inventario_insumo
         PRIMARY KEY (id_insumo),
