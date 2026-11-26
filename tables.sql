@@ -77,7 +77,7 @@ CREATE TABLE empleado
         FOREIGN KEY (id_departamento)
         REFERENCES departamento (id_departamento)
         ON UPDATE CASCADE
-        ON DELETE SET NULL
+        ON DELETE SET RESTRICT
 );
 
 -- TABLA TURNO_TRABAJO
