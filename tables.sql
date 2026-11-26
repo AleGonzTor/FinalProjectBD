@@ -297,7 +297,7 @@ CREATE TABLE orden_trabajo
         FOREIGN KEY (id_empleado_responsable)
         REFERENCES empleado (id_empleado)
         ON UPDATE CASCADE
-        ON DELETE SET NULL,
+        ON DELETE RESTRICT,
     CONSTRAINT fk_orden_insumo
         FOREIGN KEY (id_insumo)
         REFERENCES inventario_insumo (id_insumo)
