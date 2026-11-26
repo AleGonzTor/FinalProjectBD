@@ -118,7 +118,7 @@ CREATE TABLE solicitud_mantenimiento
     fecha_reporte TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     estado CHAR(1) NOT NULL,
     id_habitacion INT NOT NULL,
-    id_empleado_reporta INT NOT NULL,
+    id_empleado_reporta INT,
 
     CONSTRAINT pk_solicitud_mantenimiento
         PRIMARY KEY (id_solicitud),
