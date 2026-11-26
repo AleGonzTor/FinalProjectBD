@@ -3,12 +3,13 @@ import psycopg
 
 app = FastAPI()
 
-database = "hotel"
-admin = "alej"
+database = "resort"
+admin = "alejandro"
+pswrd = "111224"
 
 @app.post("/reserva")
 def reserva():
-    with psycopg.connect(dbname = database, user = admin) as db:
+    with psycopg.connect(dbname = database, user = admin, password = pswrd) as db:
         with db.cursor() as sql:
             sql.execute("""
                 WITH reserva AS (
