@@ -51,3 +51,23 @@ SET detalle_ejecucion = '{
     "prioridad": "baja"
 }'
 WHERE id_empleado_responsable = 5;
+
+
+--SELECT REQUERIDO:
+SELECT
+    ot.id_orden,
+	  e.nombre AS tecnico_responsabel,
+    sm.falla_descripcion,
+    ot.detalle_ejecucion ->> 'tipo_falla' AS tipo_falla,
+    ot.detalle_ejecucion ->> 'zona' AS zona,
+    ot.detalle_ejecucion ->> 'diagnostico' AS diagnostico,
+    ot.detalle_ejecucion ->> 'prioridad' AS prioridad
+FROM orden_trabajo ot
+INNER JOIN solicitud_mantenimiento sm
+    ON ot.id_solicitud = sm.id_solicitud
+INNER JOIN empleado e
+	ON ot.id_empleado_responsable = e.id_empleado
+WHERE ot.detalle_ejecucion ->> 'tipo_falla' = 'electrico';
+
+
+
